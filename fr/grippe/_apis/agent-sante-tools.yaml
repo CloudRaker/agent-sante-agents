@@ -1,0 +1,62 @@
+openapi: 3.1.0
+info:
+  title: Agent Santé place tools
+  version: "1.0"
+  description: >-
+    Tools of the Agent Santé web app (agentsante.ca). They find health places near the person, such as
+    a pharmacy. They never book an appointment. `near` is the
+    place reference (ref-...) that the web app writes in the message after a postal code. Auth:
+    the x-agent-sante-tools header from the network entry of agent.yml.
+servers:
+  - url: https://agentsante.ca/tools/v1
+paths:
+  /places_search:
+    post:
+      operationId: places_search
+      summary: Health places near the person (Québec health resources directory), nearest first
+      description: >-
+        Body: near (required), kind (best), or service or query, radius_km, limit, lang. The person
+        sees the full list and a map under your reply. You get a count and the 3 nearest names only.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [near]
+              properties:
+                near:
+                  type: string
+                  pattern: "^ref-[a-z]{12}$"
+                  description: The place reference from the message, for example ref-abcdefghijkl.
+                kind:
+                  type: string
+                  enum: [pharmacy, clsc, clinic, specialized_clinic, hospital, crisis_centre, community, rehab, residence, public_health, vaccination, home_care, lab]
+                  description: The kind of place. Use it when the person asks for one (pharmacy, CLSC, clinic or GMF, specialized clinic, hospital or emergency room, crisis centre for mental health distress, community organization for support, rehabilitation centre, residence or housing for seniors, public health office, vaccination site, home care, blood test lab). With kind, leave out service and query.
+                service:
+                  type: string
+                  maxLength: 120
+                  description: A service word of the directory, in French. Examples - vaccination, CLSC, pharmacie, clinique médicale, sans rendez-vous, prélèvements, urgence.
+                query:
+                  type: string
+                  maxLength: 120
+                  description: Words in the name of the place, in French. Use service or query, not both.
+                radius_km:
+                  type: number
+                  minimum: 1
+                  maximum: 50
+                  description: Search radius in km. Default 10.
+                limit:
+                  type: integer
+                  minimum: 1
+                  maximum: 20
+                  description: Max places. Default 10.
+                lang:
+                  type: string
+                  enum: [fr, en]
+      responses:
+        "200":
+          description: Summary for the agent. The list goes to the person.
+        "404":
+          description: Unknown place reference. Ask the person for their postal code.

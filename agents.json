@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "entry": {
+    "fr": "fr/concierge",
+    "en": "en/concierge"
+  },
+  "agents": [
+    {
+      "id": "fr/concierge",
+      "lang": "fr",
+      "name": "Accueil",
+      "description": "Accueille la personne, comprend sa demande et la dirige vers le bon agent. Aide aussi à préparer un appel au 811.",
+      "counterpart": "en/concierge"
+    },
+    {
+      "id": "fr/virus-vaccins",
+      "lang": "fr",
+      "name": "Vaccination",
+      "description": "Vaccination de tous les âges : quels vaccins, qui est visé, ce qui est gratuit, où et comment prendre rendez-vous.",
+      "counterpart": "en/viruses-vaccines"
+    },
+    {
+      "id": "fr/grippe",
+      "lang": "fr",
+      "name": "Grippe et virus respiratoires",
+      "description": "Malade de la grippe, de la COVID-19, du VRS ou d'un rhume : symptômes, soins à la maison, quand consulter, antiviraux et contagion.",
+      "counterpart": "en/flu"
+    },
+    {
+      "id": "fr/gastro",
+      "lang": "fr",
+      "name": "Gastroentérite",
+      "description": "Gastroentérite (gastro) chez l'adulte, l'enfant et le bébé : vomissements, diarrhée, hydratation, alimentation, contagion et quand consulter.",
+      "counterpart": "en/gastro"
+    },
+    {
+      "id": "fr/aines",
+      "lang": "fr",
+      "name": "Aînés et proches aidants",
+      "description": "Personnes aînées, proches aidants, soutien à domicile, hébergement et soins de fin de vie.",
+      "counterpart": "en/seniors"
+    },
+    {
+      "id": "fr/sante-mentale",
+      "lang": "fr",
+      "name": "Santé mentale",
+      "description": "Santé mentale, anxiété, déprime, deuil, dépendances et ressources d'aide psychosociale.",
+      "counterpart": "en/mental-health"
+    },
+    {
+      "id": "fr/grossesse-enfants",
+      "lang": "fr",
+      "name": "Grossesse et enfants",
+      "description": "Grossesse, accouchement, bébés, enfants, adolescents et allaitement.",
+      "counterpart": "en/pregnancy-children"
+    },
+    {
+      "id": "fr/maladies-medicaments",
+      "lang": "fr",
+      "name": "Problèmes de santé et médicaments",
+      "description": "Problèmes de santé courants, maladies de A à Z et services en pharmacie.",
+      "counterpart": "en/illness-medication"
+    },
+    {
+      "id": "fr/medicaments",
+      "lang": "fr",
+      "name": "Médicaments",
+      "description": "Un médicament précis : ce que c'est, comment le prendre, mises en garde et effets secondaires selon la notice de Santé Canada, et produits en vente libre pour un besoin courant.",
+      "counterpart": "en/medications"
+    },
+    {
+      "id": "fr/acces-services",
+      "lang": "fr",
+      "name": "Accès aux services",
+      "description": "Où aller et comment obtenir un rendez-vous : 811, GAP, CLSC, GMF, urgences, RVSQ, établissements près de chez soi et fonctionnement du réseau.",
+      "counterpart": "en/access-to-care"
+    },
+    {
+      "id": "fr/prevention-environnement",
+      "lang": "fr",
+      "name": "Prévention et santé publique",
+      "description": "Saines habitudes de vie, dépistage, tabac et alcool, chaleur, qualité de l'air et de l'eau, maladies transmises par les animaux.",
+      "counterpart": "en/prevention-environment"
+    },
+    {
+      "id": "fr/sante-sexuelle",
+      "lang": "fr",
+      "name": "Santé sexuelle",
+      "description": "Contraception, ITSS, dépistage et santé sexuelle et reproductive.",
+      "counterpart": "en/sexual-health"
+    },
+    {
+      "id": "en/concierge",
+      "lang": "en",
+      "name": "Welcome",
+      "description": "Welcomes the person, understands the request and directs it to the right agent. Also helps prepare a call to 811.",
+      "counterpart": "fr/concierge"
+    },
+    {
+      "id": "en/viruses-vaccines",
+      "lang": "en",
+      "name": "Vaccination",
+      "description": "Vaccination at all ages: which vaccines, who is targeted, what is free, where and how to book.",
+      "counterpart": "fr/virus-vaccins"
+    },
+    {
+      "id": "en/flu",
+      "lang": "en",
+      "name": "Flu and respiratory viruses",
+      "description": "Sick with the flu, COVID-19, RSV or a cold: symptoms, home care, when to consult, antivirals and contagion.",
+      "counterpart": "fr/grippe"
+    },
+    {
+      "id": "en/gastro",
+      "lang": "en",
+      "name": "Gastroenteritis",
+      "description": "Gastroenteritis (stomach flu) in adults, children and babies: vomiting, diarrhea, hydration, food, contagion and when to consult.",
+      "counterpart": "fr/gastro"
+    },
+    {
+      "id": "en/seniors",
+      "lang": "en",
+      "name": "Seniors and caregivers",
+      "description": "Seniors, caregivers, home support, housing and end-of-life care.",
+      "counterpart": "fr/aines"
+    },
+    {
+      "id": "en/mental-health",
+      "lang": "en",
+      "name": "Mental health",
+      "description": "Mental health, anxiety, low mood, grief, addictions and psychosocial help resources.",
+      "counterpart": "fr/sante-mentale"
+    },
+    {
+      "id": "en/pregnancy-children",
+      "lang": "en",
+      "name": "Pregnancy and children",
+      "description": "Pregnancy, birth, babies, children, teenagers and breastfeeding.",
+      "counterpart": "fr/grossesse-enfants"
+    },
+    {
+      "id": "en/illness-medication",
+      "lang": "en",
+      "name": "Health problems and medications",
+      "description": "Common health problems, health issues from A to Z and pharmacy services.",
+      "counterpart": "fr/maladies-medicaments"
+    },
+    {
+      "id": "en/medications",
+      "lang": "en",
+      "name": "Medications",
+      "description": "A specific medication: what it is, how to take it, warnings and side effects from the Health Canada leaflet, and over-the-counter products for a common need.",
+      "counterpart": "fr/medicaments"
+    },
+    {
+      "id": "en/access-to-care",
+      "lang": "en",
+      "name": "Access to care",
+      "description": "Where to go and how to get an appointment: 811, GAP, CLSC, GMF, emergency rooms, RVSQ, places near you and how the health system works.",
+      "counterpart": "fr/acces-services"
+    },
+    {
+      "id": "en/prevention-environment",
+      "lang": "en",
+      "name": "Prevention and public health",
+      "description": "Healthy lifestyle, screening, tobacco and alcohol, heat, air and water quality, diseases spread by animals.",
+      "counterpart": "fr/prevention-environnement"
+    },
+    {
+      "id": "en/sexual-health",
+      "lang": "en",
+      "name": "Sexual health",
+      "description": "Contraception, STBBIs, testing and sexual and reproductive health.",
+      "counterpart": "fr/sante-sexuelle"
+    }
+  ]
+}

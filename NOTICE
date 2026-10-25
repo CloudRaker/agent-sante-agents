@@ -1,0 +1,26 @@
+Agent Santé: CloudRaker Run agents
+Copyright 2026 CloudRaker
+
+The agent prompts and configuration in this repository are licensed under
+the Apache License, Version 2.0. See LICENSE.
+
+Source content
+--------------
+The files under knowledge/ are Markdown copies of public pages and documents
+of official Québec sources, retrieved for this project. This content is NOT
+covered by the Apache License of this repository. It stays the property of
+its owners and is used under their own terms of use:
+
+- Gouvernement du Québec (Québec.ca, publications of the ministère de la
+  Santé et des Services sociaux): (c) Gouvernement du Québec.
+- Santé Québec (sante.quebec): (c) Santé Québec.
+- Institut national de santé publique du Québec (inspq.qc.ca): (c) INSPQ.
+- Other official Québec public bodies, as each file states.
+
+Attribution is per file: the front matter of each file gives the official
+page in "source_url" (and in "title"), with the retrieval date. Always check
+the official page for the current version. The copies can be out of date.
+
+Agent Santé is an independent project of CloudRaker. It has no affiliation
+with the Gouvernement du Québec, Santé Québec or the INSPQ, and they do not
+endorse it.

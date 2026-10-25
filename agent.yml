@@ -1,0 +1,15 @@
+# Shared defaults for every Agent Santé agent. Leaf folders deep-merge over this file.
+# Do not put leaf-only keys here (name, mode, idle_ttl, protection, triggers, events).
+model:
+  id: anthropic/claude-haiku-5-5
+  temperature: 0.2
+  # Haiku reasoning tokens count in this limit. A low limit can cut a long reply or leave it empty.
+  max_output_tokens: 4000
+# Data is purged this long after the run ends (idle_ttl 5m in each leaf, then 5m here):
+# about 10 minutes after the conversation ends.
+retention: 5m
+# Keep the turn timeout shorter than the web Worker reply wait (60 s by default).
+timeout: 50s
+limits:
+  max_steps: 200
+  max_code_calls: 0             # no execute_code or save_code on a public site

@@ -1,0 +1,134 @@
+openapi: 3.1.0
+info:
+  title: Agent Santé drug and place tools
+  version: "1.0"
+  description: >-
+    Tools of the Agent Santé web app (agentsante.ca). They find drugs in the Health Canada database,
+    read the leaflet of an over-the-counter product, and find a pharmacy near the person. They never
+    book an appointment. `near` is the
+    place reference (ref-...) that the web app writes in the message after a postal code. Auth:
+    the x-agent-sante-tools header from the network entry of agent.yml.
+servers:
+  - url: https://agentsante.ca/tools/v1
+paths:
+  /drug_search:
+    post:
+      operationId: drug_search
+      summary: Marketed drugs in Canada by brand name or ingredient (Health Canada Drug Product Database)
+      description: >-
+        Body: name (required), otc_only, limit, lang. Finds any product by name, prescription
+        included. Each product has otc (over the counter) and prescription flags. A prescription
+        product is never an option to suggest: say only what it is. To look for products for a
+        need (for example "something for a headache"), search by ingredient with otc_only true.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [name]
+              properties:
+                name:
+                  type: string
+                  minLength: 2
+                  maxLength: 80
+                  description: A brand name (Tylenol, Advil) or an ingredient (acétaminophène, ibuprofen).
+                otc_only:
+                  type: boolean
+                  description: True to get over-the-counter products only. Use it for any search that is not a precise product name.
+                limit:
+                  type: integer
+                  minimum: 1
+                  maximum: 15
+                  description: Max products. Default 8.
+                lang:
+                  type: string
+                  enum: [fr, en]
+      responses:
+        "200":
+          description: Products, with drug_code, name, ingredients, form, route, otc, prescription.
+  /drug_info:
+    post:
+      operationId: drug_info
+      summary: The consumer part of the leaflet of an over-the-counter product (Health Canada)
+      description: >-
+        Body: drug_code (required, from drug_search), lang, question. Over-the-counter products
+        only: a prescription product answers 403 with no text. The answer has the leaflet text
+        (or, for a long leaflet with a question, the best passages) and cite_src, the source to
+        put in each citation of this leaflet. No leaflet yet: status says why.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [drug_code]
+              properties:
+                drug_code:
+                  type: string
+                  pattern: "^[0-9]{1,10}$"
+                  description: The drug_code of a product from drug_search.
+                lang:
+                  type: string
+                  enum: [fr, en]
+                question:
+                  type: string
+                  maxLength: 200
+                  description: What the person wants to know (for example "dose pour adulte", "effets secondaires"). Gives the best passages of a long leaflet.
+      responses:
+        "200":
+          description: Product, leaflet text or passages, cite_src, or a status when there is no leaflet yet.
+        "403":
+          description: Prescription product. No leaflet text. Direct the person to their pharmacist or doctor.
+  /places_search:
+    post:
+      operationId: places_search
+      summary: Health places near the person (Québec health resources directory), nearest first
+      description: >-
+        Body: near (required), kind (best), or service or query, radius_km, limit, lang. The person
+        sees the full list and a map under your reply. You get a count and the 3 nearest names only.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [near]
+              properties:
+                near:
+                  type: string
+                  pattern: "^ref-[a-z]{12}$"
+                  description: The place reference from the message, for example ref-abcdefghijkl.
+                kind:
+                  type: string
+                  enum: [pharmacy, clsc, clinic, specialized_clinic, hospital, crisis_centre, community, rehab, residence, public_health, vaccination, home_care, lab]
+                  description: The kind of place. Use it when the person asks for one (pharmacy, CLSC, clinic or GMF, specialized clinic, hospital or emergency room, crisis centre for mental health distress, community organization for support, rehabilitation centre, residence or housing for seniors, public health office, vaccination site, home care, blood test lab). With kind, leave out service and query.
+                service:
+                  type: string
+                  maxLength: 120
+                  description: A service word of the directory, in French. Examples - vaccination, CLSC, pharmacie, clinique médicale, sans rendez-vous, prélèvements, urgence.
+                query:
+                  type: string
+                  maxLength: 120
+                  description: Words in the name of the place, in French. Use service or query, not both.
+                radius_km:
+                  type: number
+                  minimum: 1
+                  maximum: 50
+                  description: Search radius in km. Default 10.
+                limit:
+                  type: integer
+                  minimum: 1
+                  maximum: 20
+                  description: Max places. Default 10.
+                lang:
+                  type: string
+                  enum: [fr, en]
+      responses:
+        "200":
+          description: Summary for the agent. The list goes to the person.
+        "404":
+          description: Unknown place reference. Ask the person for their postal code.

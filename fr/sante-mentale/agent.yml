@@ -1,0 +1,61 @@
+# Agent fr/sante-mentale. Shared keys (model, retention, timeout, limits) are in the root agent.yml.
+# Leaf-only keys must be in each leaf: name, mode, idle_ttl, protection, triggers, events.
+name: "Santé mentale"
+mode: turns
+idle_ttl: 5m
+protection: token
+triggers:
+  http: true
+knowledge:
+  - fr/sante-mentale
+  - fr/orientation
+  # Same subjects in English: searched when the French sources have nothing useful.
+  - en/sante-mentale
+  - en/orientation
+events:
+  status:
+    description: "Dire en une phrase courte ce que vous faites (recherche, lecture, lieux, transfert). Appeler dans la même étape que cet outil. Jamais de conseil, de diagnostic ni de dose."
+    schema:
+      type: object
+      additionalProperties: false
+      required: [text]
+      properties:
+        text:
+          type: string
+          minLength: 3
+          maxLength: 100
+  handoff:
+    description: "Transférer la conversation à un autre agent d'Agent Santé en français. Appeler une seule fois, comme première action, puis terminer le tour sans texte."
+    schema:
+      type: object
+      additionalProperties: false
+      required: [to, reason]
+      properties:
+        to:
+          type: string
+          enum:
+            - fr/concierge
+            - fr/virus-vaccins
+            - fr/aines
+            - fr/grossesse-enfants
+            - fr/maladies-medicaments
+            - fr/acces-services
+            - fr/prevention-environnement
+            - fr/sante-sexuelle
+            - fr/gastro
+            - fr/grippe
+            - fr/medicaments
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 200
+  switch_language:
+    description: "Passer à la version anglaise quand le dernier message de la personne est en anglais ou quand elle le demande. Ne pas répondre en anglais. Terminer le tour sans texte."
+    schema:
+      type: object
+      additionalProperties: false
+      required: [to]
+      properties:
+        to:
+          type: string
+          enum: [en]

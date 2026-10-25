@@ -1,0 +1,154 @@
+openapi: 3.1.0
+info:
+  title: Agent Santé place tools
+  version: "1.0"
+  description: >-
+    Tools of the Agent Santé web app (agentsante.ca). They find health places near the person and
+    give a link to the Clic Santé results page. They never book an appointment. `near` is the
+    place reference (ref-...) that the web app writes in the message after a postal code. Auth:
+    the x-agent-sante-tools header from the network entry of agent.yml.
+servers:
+  - url: https://agentsante.ca/tools/v1
+paths:
+  /places_search:
+    post:
+      operationId: places_search
+      summary: Health places near the person (Québec health resources directory), nearest first
+      description: >-
+        Body: near (required), kind (best), or service or query, radius_km, limit, lang. The person
+        sees the full list and a map under your reply. You get a count and the 3 nearest names only.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [near]
+              properties:
+                near:
+                  type: string
+                  pattern: "^ref-[a-z]{12}$"
+                  description: The place reference from the message, for example ref-abcdefghijkl.
+                kind:
+                  type: string
+                  enum: [pharmacy, clsc, clinic, specialized_clinic, hospital, crisis_centre, community, rehab, residence, public_health, vaccination, home_care, lab]
+                  description: The kind of place. Use it when the person asks for one (pharmacy, CLSC, clinic or GMF, specialized clinic, hospital or emergency room, crisis centre for mental health distress, community organization for support, rehabilitation centre, residence or housing for seniors, public health office, vaccination site, home care, blood test lab). With kind, leave out service and query.
+                service:
+                  type: string
+                  maxLength: 120
+                  description: A service word of the directory, in French. Examples - vaccination, CLSC, pharmacie, clinique médicale, sans rendez-vous, prélèvements, urgence.
+                query:
+                  type: string
+                  maxLength: 120
+                  description: Words in the name of the place, in French. Use service or query, not both.
+                radius_km:
+                  type: number
+                  minimum: 1
+                  maximum: 50
+                  description: Search radius in km. Default 10.
+                limit:
+                  type: integer
+                  minimum: 1
+                  maximum: 20
+                  description: Max places. Default 10.
+                lang:
+                  type: string
+                  enum: [fr, en]
+      responses:
+        "200":
+          description: Summary for the agent. The list goes to the person.
+        "404":
+          description: Unknown place reference. Ask the person for their postal code.
+  /appointments_services:
+    post:
+      operationId: appointments_services
+      summary: Find Clic Santé services by words (no booking)
+      description: Body - query (required), lang. Returns service keys to pass to appointments_link.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [query]
+              properties:
+                query:
+                  type: string
+                  maxLength: 120
+                  description: Words of the service, for example "vaccin grippe", "prise de sang", "flu vaccine".
+                lang:
+                  type: string
+                  enum: [fr, en]
+      responses:
+        "200":
+          description: "{services: [{service, name, list_page}]}"
+  /appointments_link:
+    post:
+      operationId: appointments_link
+      summary: Show the person a button to the Clic Santé results page of a service near them
+      description: >-
+        Body: service (required, a key from appointments_services or a known id such as
+        "vaccination-virus-respiratoires"), near (required), lang. The person sees the button
+        under your reply and books on Clic Santé. You never book.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [service, near]
+              properties:
+                service:
+                  type: string
+                  maxLength: 120
+                near:
+                  type: string
+                  pattern: "^ref-[a-z]{12}$"
+                lang:
+                  type: string
+                  enum: [fr, en]
+      responses:
+        "200":
+          description: Confirmation for the agent. The link goes to the person.
+        "404":
+          description: Unknown place reference. Ask the person for their postal code.
+  /appointments_search:
+    post:
+      operationId: appointments_search
+      summary: Places with free Clic Santé slots for a service near the person, and the same button as appointments_link
+      description: >-
+        Body: service (required, a key from appointments_services or a known id), near (required),
+        radius_km, lang. The person sees the places with free slots and a button to the Clic Santé
+        results page under your reply. You get a count only. You never book. If it answers 404
+        disabled, use appointments_link.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [service, near]
+              properties:
+                service:
+                  type: string
+                  maxLength: 120
+                near:
+                  type: string
+                  pattern: "^ref-[a-z]{12}$"
+                radius_km:
+                  type: number
+                  minimum: 1
+                  maximum: 100
+                  description: Search radius in km. Default 25.
+                lang:
+                  type: string
+                  enum: [fr, en]
+      responses:
+        "200":
+          description: "{service, area, places_with_slots, link_shown_to_person}. The list goes to the person."
+        "404":
+          description: Unknown place reference (ask the postal code again), or disabled (use appointments_link).
