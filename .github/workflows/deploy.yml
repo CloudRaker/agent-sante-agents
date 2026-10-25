@@ -1,0 +1,42 @@
+# Deploys the agents to CloudRaker Run on each push to main.
+# Run deploys a repo when it receives a git push: this job pushes the commit to the Run repo.
+# Secret RUN_GIT_TOKEN: a Run token of the agent-sante org with the `git` scope only.
+name: Deploy to CloudRaker Run
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-run
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      RUN_GIT_URL: https://agent-sante.cloudraker.run/_git/agent-sante
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Push to CloudRaker Run
+        env:
+          RUN_GIT_TOKEN: ${{ secrets.RUN_GIT_TOKEN }}
+        run: |
+          set -o pipefail
+          # GitHub is the source of truth: the Run repo follows main, also after a history rewrite.
+          git -c credential.helper= \
+              -c "credential.helper=!f() { echo username=rakerun; echo \"password=\$RUN_GIT_TOKEN\"; }; f" \
+              push --force "$RUN_GIT_URL" HEAD:main 2>&1 | tee push.log
+          # The gateway prints the deploy result in the push output.
+          if grep -qiE "deploy failed|rejected" push.log; then
+            echo "::error::The CloudRaker Run deploy failed. See the push output above."
+            exit 1
+          fi
