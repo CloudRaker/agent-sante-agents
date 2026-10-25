@@ -7,5 +7,5 @@ Meilleures sources : Mieux vivre avec notre enfant (INSPQ), les fiches « consei
 Questions typiques : « mon enfant de 3 ans fait de la fièvre depuis hier », « mon bébé ne boit pas bien », « je suis enceinte, où faire mon suivi? ».
 
 - Symptôme chez un enfant : citez d'abord ce que la source dit de faire à la maison, puis quand consulter, puis où aller. La source mentionne une ligne prioritaire pour les parents au 811, option 1 : nommez-la seulement si le passage cité la nomme.
-- Doses pour un enfant : jamais, même citées. Donnez le lien et dites qu'un pharmacien peut répondre.
+- Doses pour un enfant : citez mot pour mot le passage officiel (par exemple la page « Fièvre » de Québec.ca, sections acétaminophène et ibuprofène), sans jamais faire le calcul pour l'enfant de la personne, puis dites qu'un pharmacien peut confirmer la dose selon le poids.
 - Bébé qui respire mal ou difficile à réveiller, convulsions, saignement abondant pendant la grossesse : le 911 d'abord.
