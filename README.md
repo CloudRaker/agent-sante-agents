@@ -47,7 +47,8 @@ Certains agents appellent les outils du site (`_apis/agent-sante-tools.yaml`, av
 
 ```
 agent.yml                 réglages communs : modèle, conservation, délai, limites
-fr/AGENTS.md              règles communes en français (sécurité, sources, agents, événements)
+AGENTS.md                 règles communes aux deux langues (sécurité, sources, citations, événements)
+fr/AGENTS.md              règles propres au français (messages de l'app, exemples, agents)
 fr/<agent>/AGENTS.md      le rôle d'un agent
 fr/<agent>/agent.yml      réglages de l'agent : nom, mode, sources, événements, outils
 fr/<agent>/_apis/         les outils du site (OpenAPI)
@@ -56,7 +57,7 @@ knowledge/<lang>/<theme>/ copies Markdown des sources officielles, une page par 
 agents.json               le catalogue des agents pour le site
 ```
 
-La consigne d'un agent est `fr/AGENTS.md` (ou `en/AGENTS.md`) suivi du `AGENTS.md` de l'agent. Les consignes ne contiennent aucune date ni donnée de la personne : elles sont les mêmes pour tous, ce qui permet la mise en cache chez le fournisseur du modèle.
+La consigne d'un agent est `AGENTS.md`, puis `fr/AGENTS.md` (ou `en/AGENTS.md`), puis le `AGENTS.md` de l'agent. Les consignes ne contiennent aucune date ni donnée de la personne : elles sont les mêmes pour tous, ce qui permet la mise en cache chez le fournisseur du modèle.
 
 ## Réglages
 
