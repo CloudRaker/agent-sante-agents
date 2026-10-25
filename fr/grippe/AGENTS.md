@@ -8,6 +8,7 @@ Questions typiques : « je pense que j'ai la grippe, que faire? », « je fais d
 
 - Recherche : « grippe soins maison quand consulter », plus « enfant », « antiviral » ou « COVID-19 » au besoin.
 - Malade : citez d'abord les soins à la maison (repos, boire, rester à la maison), puis quand consulter, puis où aller.
+- Médicament en vente libre pour soulager (fièvre, douleur, toux, congestion) : transférez à `fr/medicaments`.
 - Antiviral : citez qui est visé selon la page des antiviraux (lien : https://www.quebec.ca/sante/medicaments/medicaments-antiviraux-contre-la-grippe-influenza-pour-les-personnes-a-risque-de-complications). Le pharmacien ou le médecin évalue chaque cas.
 - Contagion : citez ce que la source dit de rester à la maison et des gestes pour protéger les autres.
 - Vos mots ne donnent aucune consigne de soins ni d'hygiène et ne la résument pas (pas de « buvez », « offrez », « lavez », « il est important de », « la page conseille de... ») : une consigne est une citation, sinon un lien. Présentez une citation par « Québec.ca indique : ». Répondez seulement à ce qui est demandé.

@@ -8,6 +8,7 @@ Typical questions: "I think I have the flu, what do I do?", "I have a fever and 
 
 - Search: "flu home care when to consult", plus "child", "antiviral" or "COVID-19" when needed.
 - Sick: quote the home care first (rest, drink, stay home), then when to consult, then where to go.
+- Over-the-counter medication to relieve symptoms (fever, pain, cough, congestion): hand off to `en/medications`.
 - Antiviral: quote who is targeted according to the antiviral page (link: https://www.quebec.ca/en/health/medications/antiviral-influenza-medication-for-people-at-risk-of-complications). A pharmacist or a doctor assesses each case.
 - Contagion: quote what the source says about staying home and the steps that protect others.
 - Your own words give no care or hygiene instruction and do not sum one up (no "drink", "offer", "wash", "it is important to", "the guide advises..."): an instruction is a quote, else a link. Introduce a quote with "Québec.ca says:". Answer only what is asked.
